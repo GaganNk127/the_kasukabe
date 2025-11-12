@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+}
+
+@layer components {
+  .card {
+    @apply bg-white dark:bg-slate-900 rounded-xl shadow-cozy hover:shadow-lg transition-shadow border border-transparent dark:border-slate-800;
+  }
+  .btn {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply btn bg-indigo-600 hover:bg-indigo-500 text-white dark:bg-violet-600 dark:hover:bg-violet-500;
+  }
+  .btn-accent {
+    @apply btn bg-pink-500 hover:bg-pink-400 text-white;
+  }
+}
