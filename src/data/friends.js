@@ -1,37 +1,37 @@
-import abhya from '../assets/abhya.jpg'
-import avatar2 from '../assets/abhya.jpg'
-import avatar3 from '../assets/abhya.jpg'
-import trio from '../assets/trio.jpg'
-import gokak from '../assets/gokak.jpg'
-import group2 from '../assets/group2.jpg'
+const abhya = new URL('../assets/abhya.jpg', import.meta.url).href
+const avatar2 = new URL('../assets/abhya.jpg', import.meta.url).href
+const avatar3 = new URL('../assets/abhya.jpg', import.meta.url).href
+const trio = new URL('../assets/trio.jpg', import.meta.url).href
+const gokak = new URL('../assets/gokak.jpg', import.meta.url).href
+const group2 = new URL('../assets/group2.jpg', import.meta.url).href
 
-import anki_profile from '../assets/anki_profile.jpg'
-import Anku from '../assets/anku.jpg'
-import mGA from '../assets/mGA.jpg'
-import anku3 from '../assets/anku3.jpg'
-
-
-import manja from '../assets/manja.jpg'
-import manja_modi from '../assets/mnaj_modi.jpg'
+const anki_profile = new URL('../assets/anki_profile.jpg', import.meta.url).href
+const Anku = new URL('../assets/anku.jpg', import.meta.url).href
+const mGA = new URL('../assets/mGA.jpg', import.meta.url).href
+const anku3 = new URL('../assets/anku3.jpg', import.meta.url).href
 
 
-import suma from '../assets/suma.jpg'
-import group3 from '../assets/group3.jpg'
+const manja = new URL('../assets/manja.jpg', import.meta.url).href
+const manja_modi = new URL('../assets/mnaj_modi.jpg', import.meta.url).href
 
 
-import tony from '../assets/tony.jpg'
-import tonya from '../assets/tonya.jpg'
-import grp_good from '../assets/grp_good.jpg'
+const suma = new URL('../assets/suma.jpg', import.meta.url).href
+const group3 = new URL('../assets/group3.jpg', import.meta.url).href
 
 
-import Ashish from '../assets/Ashish.jpg'
-import boys from '../assets/boys.jpg'
-import ashya_gagan from '../assets/ashya_gagan.jpg'
+const tony = new URL('../assets/tony.jpg', import.meta.url).href
+const tonya = new URL('../assets/tonya.jpg', import.meta.url).href
+const grp_good = new URL('../assets/grp_good.jpg', import.meta.url).href
 
 
-import arya from '../assets/arya.jpeg'
-import Arya_baby from '../assets/Aaru_baby.jpg'
-import group1 from '../assets/group1.jpg'
+const Ashish = new URL('../assets/Ashish.jpg', import.meta.url).href
+const boys = new URL('../assets/boys.jpg', import.meta.url).href
+const ashya_gagan = new URL('../assets/ashya_gagan.jpg', import.meta.url).href
+
+
+const arya = new URL('../assets/arya.jpeg', import.meta.url).href
+const Arya_baby = new URL('../assets/Aaru_baby.jpg', import.meta.url).href
+const group1 = new URL('../assets/group1.jpg', import.meta.url).href
 
 
 
