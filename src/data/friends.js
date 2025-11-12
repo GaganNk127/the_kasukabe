@@ -67,7 +67,7 @@ const friends = [
     quote: '“Small in height but giant in heart — Ankita is that bundle of care, chaos, and endless gossip who makes every moment brighter.” 💖',
     about: 'Ankita is the friend everyone wishes they had — caring, loyal, and always there no matter what. She may be short in height, but her spirit stands tall in every situation. With her mischievous grin and a never-ending collection of gossips, she can turn even the dullest day into a laughter riot. A true partner in crime and comfort, Ankita is the heartbeat of every group she’s in.',
     avatar: anki_profile,
-    photos: [PhotoD, PhotoE, PhotoF]
+    photos: [grp_good, PhotoE, PhotoF]
   },
   {
     slug: 'Manja',
