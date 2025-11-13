@@ -1,58 +1,68 @@
-import { useRef, useState } from "react"
+import { useRef, useState } from "react";
+import axios from "axios";
+import { db } from "../firebaseConfig"; // adjust path if needed
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 
 export default function UploadButton({ onUpload }) {
-  const inputRef = useRef(null)
-  const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState("")
+  const inputRef = useRef(null);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
-  const handlePick = () => inputRef.current?.click()
+  const handlePick = () => inputRef.current?.click();
 
   const handleChange = async (e) => {
-    const file = e.target.files?.[0]
-    if (!file) return
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-    setLoading(true)
-    setMessage("Uploading to Cloudinary...")
+    setLoading(true);
+    setMessage("Uploading to Cloudinary...");
 
     try {
-      const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || "dsxpc8363"
-      const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || "kasukabe"
-      const FOLDER = import.meta.env.VITE_CLOUDINARY_FOLDER || "upload_gallery"
+      const CLOUD_NAME =
+        import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || "dsxpc8363";
+      const UPLOAD_PRESET =
+        import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || "kasukabe";
+      const FOLDER = import.meta.env.VITE_CLOUDINARY_FOLDER || "upload_gallery";
 
       if (!CLOUD_NAME || !UPLOAD_PRESET) {
-        throw new Error("Missing Cloudinary env vars")
+        throw new Error("Missing Cloudinary environment variables");
       }
 
-      const formData = new FormData()
-      formData.append("file", file)
-      formData.append("upload_preset", UPLOAD_PRESET)
-      if (FOLDER) formData.append("folder", FOLDER)
+      // Cloudinary upload
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", UPLOAD_PRESET);
+      if (FOLDER) formData.append("folder", FOLDER);
 
-      const response = await fetch(
+      const res = await axios.post(
         `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      )
+        formData
+      );
 
-      const data = await response.json()
+      const data = res.data;
 
       if (data.secure_url) {
-        setMessage("Upload successful!")
-        onUpload?.({ url: data.secure_url, alt: file.name })
+        // Save to Firebase Firestore
+        await addDoc(collection(db, "galleryImages"), {
+          url: data.secure_url,
+          name: file.name,
+          createdAt: Timestamp.now()
+        });
+
+        setMessage("✅ Upload successful!");
+        onUpload?.({ url: data.secure_url, alt: file.name });
       } else {
-        throw new Error("Upload failed.")
+        throw new Error("Upload failed: No secure URL returned.");
       }
     } catch (err) {
-      console.error(err)
-      setMessage("Upload failed. Please check Cloudinary config and try again.")
+      console.error(err);
+      setMessage("❌ Upload failed. Check Cloudinary or Firebase config.");
     } finally {
-      setLoading(false)
-      e.target.value = ""
-      setTimeout(() => setMessage(""), 2000)
+      setLoading(false);
+      e.target.value = "";
+      setTimeout(() => setMessage(""), 2500);
     }
-  }
+  };
 
   return (
     <div className="flex items-center gap-3">
@@ -79,5 +89,5 @@ export default function UploadButton({ onUpload }) {
       </button>
       {message && <span className="text-sm text-gray-700">{message}</span>}
     </div>
-  )
+  );
 }

@@ -1,29 +1,48 @@
-import { useState, useEffect } from "react"
-import GalleryGrid from "../components/GalleryGrid"
-import UploadButton from "../components/UploadButton"
-import initialImages from "../data/gallery"
+import { useState, useEffect } from "react";
+import GalleryGrid from "../components/GalleryGrid";
+import UploadButton from "../components/UploadButton";
+import { db } from "../firebaseConfig";
+import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
+
 
 export default function SharedGallery() {
-  const STORAGE_KEY = "shared_gallery_images_v1"
+  const STORAGE_KEY = "shared_gallery_images_v1";
   const [images, setImages] = useState(() => {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY)
-      const parsed = raw ? JSON.parse(raw) : null
-      return Array.isArray(parsed) ? parsed : initialImages
-    } catch (_) {
-      return initialImages
+      const raw = localStorage.getItem("");
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
     }
-  })
+  });
 
+  // 🔹 Listen to Firestore in real-time
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(images))
-    } catch (_) {}
-  }, [images])
+    const q = query(collection(db, "galleryImages"), orderBy("createdAt", "desc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const fetchedImages = snapshot.docs.map((doc) => ({
+        url: doc.data().url,
+        alt: doc.data().name || "Uploaded image",
+      }));
 
-  const handleUpload = (img) => {
-    setImages((prev) => [img, ...prev])
-  }
+      setImages(fetchedImages);
+
+      // also update localStorage
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(fetchedImages));
+      } catch {
+        console.warn("Could not save to localStorage");
+      }
+    });
+
+    return () => unsubscribe(); // clean up listener
+  }, []);
+
+  // 🔹 Add uploaded image immediately (for instant UI feedback)
+  const handleUpload = (newImg) => {
+    setImages((prev) => [newImg, ...prev]);
+  };
 
   return (
     <section className="pt-8 space-y-6 max-w-5xl mx-auto px-4">
@@ -39,5 +58,5 @@ export default function SharedGallery() {
 
       <GalleryGrid images={images} />
     </section>
-  )
+  );
 }

@@ -33,6 +33,8 @@ const arya = new URL('../assets/arya.jpeg', import.meta.url).href
 const Arya_baby = new URL('../assets/Aaru_baby.jpg', import.meta.url).href
 const group1 = new URL('../assets/group1.jpg', import.meta.url).href
 
+const gagan = new URL('../assets/gagan.jpeg', import.meta.url).href
+
 
 
 const photoA = trio
@@ -101,7 +103,7 @@ const friends = [
     name: 'Ashya',
     short: 'Jhand Ashya',
     quote: 'I’d ask Mom before saying anything cool',
-    about: 'Tony is the penguin with a planner — the mastermind behind every successful trip (and the reason everyone actually reaches the destination). He only believes in first-class vibes — from food to footwear — if it’s not high-class, it’s not Tony-approved.',
+    about: 'TAshish is the walking gentleman manual — polite, calm, and the kind of guy who needs mom’s approval even to sneeze. Don’t be fooled by the silence though — when he jokes it hits harder than expected. Basically, Sanskari with a sense of humor.',
     avatar: Ashish,
     photos: [boys, ashya_gagan, grp_good]
   },
@@ -113,6 +115,15 @@ const friends = [
     about: 'the Macchi girl with shark-level intelligence and toddler-level chaos. She can solve problems like a genius, dance like she owns the stage, and walk in a way that makes even models question their careers. Basically, a full package with fins and flair.',
     avatar: arya,
     photos: [Arya_baby,group1, gokak]
+  },
+  {
+    slug: 'Gagan',
+    name: 'Gagan',
+    short: 'The Giant',
+    quote: 'Lifts weights and codes, drops neither',
+    about: 'Gagan is the gym freak with a brain chip installed, one minute he"s counting calories, the next he"s counting bugs. Diets vanish when meets his gang ,protective and his vocabulary needs its own censor board',
+    avatar: gagan,
+    photos: [Arya_baby,mGA, gokak]
   },
 ]
 
